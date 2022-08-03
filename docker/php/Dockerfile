@@ -1,0 +1,43 @@
+FROM php:8.0.10-fpm
+
+ARG UID
+EXPOSE $UID
+
+# Create user and some useful stuff
+RUN adduser -u ${UID} --disabled-password --gecos "" appuser
+RUN mkdir /home/appuser/.ssh
+RUN chown -R appuser:appuser /home/appuser/
+RUN echo "StrictHostKeyChecking no" >> /home/appuser/.ssh/config
+RUN echo "export COLUMNS=300" >> /home/appuser/.bashrc
+
+
+# Install packages and PHP extensions
+RUN apt update \
+    && apt install -y git acl openssl openssh-client wget zip unzip vim nano librabbitmq-dev libssh-dev \
+    && apt install -y libpng-dev zlib1g-dev libzip-dev libxml2-dev libicu-dev \
+    && docker-php-ext-install intl pdo pdo_mysql zip soap bcmath sockets \
+    && pecl install xdebug apcu \
+    && docker-php-ext-enable --ini-name 05-opcache.ini opcache xdebug apcu
+
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install and update composer
+RUN curl https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
+RUN composer self-update
+
+# Install PHP-CS-FIXER
+RUN wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer
+RUN chmod a+x php-cs-fixer
+RUN mv php-cs-fixer /usr/local/bin/php-cs-fixer
+
+
+RUN mkdir -p /appdata/www
+RUN mkdir -p /appdata/www/project_data
+
+# Config XDEBUG
+COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
+USER appuser
+
+WORKDIR /appdata/www
