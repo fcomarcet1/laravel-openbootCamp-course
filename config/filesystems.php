@@ -41,6 +41,13 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        # Create new disk for use public root directory( inside front-controller dir --> index, htaccess, ...)
+        'real_public' => [
+            'driver' => 'local',
+            'root' => public_path('uploads'), // create uploads folder inside public root directory
+            'url' => env('APP_URL').'/uploads',
+            'visibility' => 'public',
+        ],
 
         's3' => [
             'driver' => 's3',
