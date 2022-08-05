@@ -18,7 +18,7 @@ run: ## Start the containers
 
 run-ro: ## Start the containers && remove orphans containers
 	docker network create laravel-network || true
-    U_ID=${UID} docker-compose up -d --remove-orphans	
+    U_ID=${UID} docker-compose up -d --remove-orphans
 
 start: ## Start the containers
 	docker network create laravel-network || true
@@ -29,7 +29,7 @@ start: ## Start the containers
 stop: ## Stop the containers
 	U_ID=${UID} docker-compose stop
 
-down:## Stop && remove the containers 
+down:## Stop && remove the containers
 	U_ID=${UID} docker-compose down
 
 restart: ## Restart the containers
@@ -49,8 +49,10 @@ prepare: ## Runs backend commands
 composer-install: ## Installs composer dependencies
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} composer install --no-interaction
 
-be-logs: ## Tails the Symfony dev log
-	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} tail -f var/log/dev.log
+be-logs: ## Tails the laravel dev log
+	##U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} tail -f var/log/dev.log
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} tail -f storage/logs/laravel.log
+
 
 ssh-be: ## bash into the be container
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} bash
