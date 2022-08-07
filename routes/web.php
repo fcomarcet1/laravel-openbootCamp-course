@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/values-from-parameters', [TestController::class, 'getValuesFromParameters']);
+Route::get('/my-first-page', [TestController::class, 'firstPage']);
 
-Route::get('/test/{string}', function (String $string) {
+/*Route::get('/test/{string}', function (String $string) {
 
-    /*switch ($string){
+    switch ($string){
         case "hello-world":
             $result = "hello-world";
             break;
@@ -30,7 +33,7 @@ Route::get('/test/{string}', function (String $string) {
         default:
             $result = "Ups algo salio mal";
             break;
-    }*/
+    }
     // match is similar to switch, but it can have multiple cases
     $result = match ($string) {
         "hello-world" => "hello-world",
@@ -41,4 +44,4 @@ Route::get('/test/{string}', function (String $string) {
     return view('welcome',[
         'string' => $result
     ]);
-});
+});*/
