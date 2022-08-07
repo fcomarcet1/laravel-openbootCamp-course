@@ -53,7 +53,7 @@ class TestController extends Controller
 
         // get session from request
         $session = $request->session();
-        print_r($session);
+
         // get client ip
         $clientIp = $request->getClientIp();
 
