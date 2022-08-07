@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+
+Route::view('/', 'home')->name('home');
+Route::view('/about', 'about')->name('about');
+
+Route::get('/contact', [ContactController::class, 'index'] )->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'] )->name('contact.store');
+
+// more examples
+// Route::put('/test', [TestController::class, 'update'] )->name('test.update');
+// Route::patch('/test', [TestController::class, 'update'] )->name('test.update');
+// Route::delete('/test', [TestController::class, 'destroy'] )->name('test.destroy');
+
+// Route::match(['GET', 'POST'], '/test', [TestController::class, 'index'] )->name('test.index');
+// Route::any('/test', [TestController::class, 'index'] )->name('test.index');
+// Route::redirect('/origin-route', '/destination-route', 302)->name('test.index');
+// Route::permanentRedirect('/origin-route', '/destination-route')->name('test.index');
+
 
 Route::get('/values-from-parameters', [TestController::class, 'getValuesFromParameters']);
 Route::get('/my-first-page', [TestController::class, 'firstPage']);
