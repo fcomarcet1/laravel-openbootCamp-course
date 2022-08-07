@@ -9,5 +9,6 @@
 </head>
 <body>
     <h1>ABOUT PAGE</h1>
+    <a href="{{ route('home') }}">Return to Home page</a>
 </body>
 </html>

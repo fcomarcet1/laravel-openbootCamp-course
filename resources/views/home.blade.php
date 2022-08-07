@@ -9,5 +9,7 @@
 </head>
 <body>
     <h1>HOME PAGE</h1>
+    <a href="{{ route('contact.index') }}">Contact</a>
+    <a href="{{ route('about') }}">About Us</a>
 </body>
 </html>
