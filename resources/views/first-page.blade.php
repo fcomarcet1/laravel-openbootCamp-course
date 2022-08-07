@@ -14,9 +14,17 @@
         <p> Mi nombre es: {{ $name }} </p>
         <h4> ¿Que hemos visto: ?</h4>
         <ul>
+            @php
+                $lessons = ['Introduccion', 'Novedades Laravel', '<b>Parametros y .env</b>', 'MVC'];
+            @endphp
+
             @foreach ($lessons as $lesson)
                 <li> {{ $lesson }} </li>
+                {{--escapar codigo html
+                    <li> {!! $lesson !!} </li>
+                --}}
             @endforeach
         </ul>
+        <script src="{{asset('js/main.js')}}"></script>
     </body>
 </html>

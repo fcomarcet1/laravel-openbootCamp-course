@@ -20,9 +20,9 @@ Route::get('/', function () {
 
 Route::get('/values-from-parameters', [TestController::class, 'getValuesFromParameters']);
 Route::get('/my-first-page', [TestController::class, 'firstPage']);
+Route::get('/example', [TestController::class, 'index']);
 
 /*Route::get('/test/{string}', function (String $string) {
-
     switch ($string){
         case "hello-world":
             $result = "hello-world";

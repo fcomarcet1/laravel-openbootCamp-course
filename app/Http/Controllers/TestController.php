@@ -28,7 +28,6 @@ class TestController extends Controller
         return view('welcome');
     }
 
-
     public function firstPage() {
         $name = 'Francisco Marcet';
         $lessons = ['Introduccion', 'Novedades Laravel', 'Parametros y .env', 'MVC'];
@@ -39,5 +38,30 @@ class TestController extends Controller
         ]);*/
 
         return view('first-page', compact('name', 'lessons'));
+    }
+
+    public function index(Request $request): Response
+    {
+        // get value from query string localhost:8000/example?string=hello-world
+        $string = $request->query('string');
+        // get value from query string localhost:8000/example?string2=hello-world
+        $string2 = $request->input('string2');
+
+        // get headers from request
+        $headers = $request->headers->all();
+        //print_r($headers);
+
+        // get session from request
+        $session = $request->session();
+        print_r($session);
+        // get client ip
+        $clientIp = $request->getClientIp();
+
+        //get value from body
+        $body = $request->getContent();
+        //print_r($body);
+
+
+        return new response('Hello World', 200);
     }
 }
