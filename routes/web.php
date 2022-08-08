@@ -19,15 +19,84 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 
+/*Route::get('/post/{category}/{slug?}', function (string $category, string $slug = null) {
+    $myCategory = $this->getCategory($category);
+    if ($slug !== null) {
+        $post = $this->getPostBySlug($slug);
+        return view('post', compact('post'));
+    }
+    $post = $this->getLastPost();
+    return view('post', compact('post'));
+
+})->name('post-slug');*/
+
 Route::get('/demo', function () {
     return view('demo');
+})->name('demo');
+
+Route::get('/my-controller/{category}/{uuid}/{id?}', [TestController::class, 'testMethod'])
+    ->whereAlpha('category')
+    ->whereUuid('uuid')
+    ->whereAlphaNumeric('id')
+    ->name('my-controller');
+
+Route::get('/test/{id}/{slug}/{uuid}', [TestController::class, 'routesWithConditions'])
+    ->whereAlphaNumeric('id')
+    ->whereAlpha('slug')
+    ->whereUuid('uuid')
+    ->name('test');
+
+Route::get('my-second-example', [TestController::class, 'mySecondExample'])
+    ->name('my-second-example');
+
+Route::prefix('contact')->group(function () {
+    Route::get('/', [ContactController::class, 'index'])
+        ->name('contact.index');
+    Route::post('/', [ContactController::class, 'store'])
+        ->name('contact.store');
+    Route::get('/{id}', [ContactController::class, 'show'])
+        ->name('contact.show');
+    Route::put('/{id}', [ContactController::class, 'update'])
+        ->name('contact.update');
+    Route::delete('/{id}', [ContactController::class, 'destroy'])
+        ->name('contact.destroy');
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('user')->group(function () {
+        Route::get('/', [ContactController::class, 'index'])
+            ->name('user.index');
+        Route::post('/', [ContactController::class, 'store'])
+            ->name('user.store');
+        Route::get('/{id}', [ContactController::class, 'show'])
+            ->name('user.show');
+        Route::put('/{id}', [ContactController::class, 'update'])
+            ->name('user.update');
+        Route::delete('/{id}', [ContactController::class, 'destroy'])
+            ->name('user.destroy');
+    });
+});
+
+Route::prefix('test')->group(function () {
+    Route::prefix('/{slug}')->where(['slug', '[a-zA-Z\]+'])->group(function () {
+            Route::get('/', [ContactController::class, 'index'])
+                ->name('user.index');
+            Route::post('/', [ContactController::class, 'store'])
+                ->name('user.store');
+            Route::get('/{id}', [ContactController::class, 'show'])
+                ->where('id', '[0-9]+')
+                ->name('user.show');
+            Route::put('/{id}', [ContactController::class, 'update'])
+                ->whereAlphaNumeric('id')
+                ->name('user.update');
+            Route::delete('/{id}', [ContactController::class, 'destroy'])
+                ->name('user.destroy');
+    });
 });
 
 
 Route::view('/', 'home')->name('home');
 Route::view('/about', 'about')->name('about');
-
-
 Route::get('/contact', [ContactController::class, 'index'] )->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'] )->name('contact.store');
 

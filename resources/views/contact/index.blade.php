@@ -18,19 +18,24 @@
 </head>
 <body>
     <h1>CONTACT PAGE</h1>
-    <form action="{{ route('contact.store') }}" method="post">
+    <form action="{{ route('contact.store') }}" method="post" autocomplete="on">
+        @method('POST')
         @csrf
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" required>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Telefono</label>
+            <textarea class="form-control" type="text" id="telephone" name="telephone" maxlength="9" required></textarea>
         </div>
         <div class="form-group">
             <label for="message">Message</label>
-            <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+            <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
         </div>
         <br/>
         <button type="submit" class="btn btn-primary">Enviar</button>
