@@ -94,6 +94,45 @@ Route::prefix('test')->group(function () {
     });
 });
 
+Route::domain('admin.example.com')->group(function () {
+    Route::prefix('test')->group(function () {
+        Route::prefix('/{slug}')->where(['slug', '[a-zA-Z\]+'])->group(function () {
+            Route::get('/', [ContactController::class, 'index'])
+                ->name('user.index');
+            Route::post('/', [ContactController::class, 'store'])
+                ->name('user.store');
+            Route::get('/{id}', [ContactController::class, 'show'])
+                ->where('id', '[0-9]+')
+                ->name('user.show');
+            Route::put('/{id}', [ContactController::class, 'update'])
+                ->whereAlphaNumeric('id')
+                ->name('user.update');
+            Route::delete('/{id}', [ContactController::class, 'destroy'])
+                ->name('user.destroy');
+        });
+    });
+});
+
+// route with middleware
+Route::get('/test-middleware', [TestController::class, 'testMiddleware'])
+    ->middleware('auth')
+    ->name('test-middleware');
+
+// route with middleware group
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/test-middleware-group', [TestController::class, 'testMiddlewareGroup'])
+        ->name('test-middleware-group');
+});
+
+Route::middleware('isAdmin')
+    ->prefix('admin')
+    ->get('/test-middleware', [TestController::class, 'testMiddlewareGroup'])
+    ->name('admin');
+
+Route::middleware('isAjax')
+    ->get('/test-ajax', [TestController::class, 'testAjax'])
+    ->name('test-ajax');
+
 
 Route::view('/', 'home')->name('home');
 Route::view('/about', 'about')->name('about');
