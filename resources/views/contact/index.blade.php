@@ -23,19 +23,20 @@
         @csrf
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" required>
+            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Enter name" >
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="Enter email" >
         </div>
         <div class="form-group">
-            <label for="message">Telefono</label>
-            <textarea class="form-control" type="text" id="telephone" name="telephone" maxlength="9" required></textarea>
+            <label for="telephone">Telefono</label>
+            <input type="tel" class="form-control" id="telephone" name="telephone" value="{{ old('telephone') }}" placeholder="Enter name" >
+            <small>Ej 666 66 66 66</small>
         </div>
         <div class="form-group">
             <label for="message">Message</label>
-            <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+            <textarea class="form-control" id="message" name="message" rows="3" >{{ old('message') }}</textarea>
         </div>
         <br/>
         <button type="submit" class="btn btn-primary">Enviar</button>

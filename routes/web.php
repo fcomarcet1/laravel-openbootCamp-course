@@ -133,11 +133,21 @@ Route::middleware('isAjax')
     ->get('/test-ajax', [TestController::class, 'testAjax'])
     ->name('test-ajax');
 
+// route with middleware and parameters
+Route::middleware(['auth', 'CheckRole:variableRole'])
+    ->get('/test-role', [TestController::class, 'testRole'])
+    ->name('test-role');
+
+Route::middleware('exampleMiddleware:all')
+    ->get('/middle', [TestController::class, 'MiddlewareFunction']);
+
 
 Route::view('/', 'home')->name('home');
 Route::view('/about', 'about')->name('about');
 Route::get('/contact', [ContactController::class, 'index'] )->name('contact.index');
-Route::post('/contact', [ContactController::class, 'store'] )->name('contact.store');
+Route::middleware('validateForm')
+    ->post('/contact', [ContactController::class, 'store'] )
+    ->name('contact.store');
 
 // more examples
 // Route::put('/test', [TestController::class, 'update'] )->name('test.update');

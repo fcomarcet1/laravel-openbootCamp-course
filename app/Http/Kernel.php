@@ -63,5 +63,7 @@ class Kernel extends HttpKernel
         'isAjax' => \App\Http\Middleware\CheckIfAjaxRequest::class,
         'isAdmin' => \App\Http\Middleware\CheckIfAdmin::class,
         'isUser' => \App\Http\Middleware\CheckIfUser::class,
+        'exampleMiddleware' => \App\Http\Middleware\ExampleMiddleware::class,
+        'validateForm' => \App\Http\Middleware\ValidateFormMiddleware::class,
     ];
 }

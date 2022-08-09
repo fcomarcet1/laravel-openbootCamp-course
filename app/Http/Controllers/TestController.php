@@ -88,8 +88,8 @@ class TestController extends Controller
         echo "Hello World " . $slug . "<br/>";
     }
 
-    public function mySecondExample() {
-
+    public function MiddlewareFunction(Request $request) {
+        echo "Hello Middleware";
     }
 
 
