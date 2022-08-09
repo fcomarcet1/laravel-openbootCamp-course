@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\IntroductionController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -148,6 +149,8 @@ Route::get('/contact', [ContactController::class, 'index'] )->name('contact.inde
 Route::middleware('validateForm')
     ->post('/contact', [ContactController::class, 'store'] )
     ->name('contact.store');
+Route::get('/intro-blade', [IntroductionController::class, 'index'])->name('intro.index');
+
 
 // more examples
 // Route::put('/test', [TestController::class, 'update'] )->name('test.update');
