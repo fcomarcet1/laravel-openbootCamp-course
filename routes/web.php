@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\BladeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\IntroductionController;
+use App\Http\Controllers\LereleController;
 use App\Http\Controllers\MyFirstPageController;
 use App\Http\Controllers\MyResourceController;
 use App\Http\Controllers\TestController;
@@ -218,3 +219,5 @@ Route::resource('resource', MyResourceController::class)->only(['index', 'show']
 Route::resource('resource', MyResourceController::class)->middleware('auth');
 Route::resource('resource', MyResourceController::class)->middleware('auth')
     ->except(['create', 'edit']);*/
+
+Route::get('/lerele', [LereleController::class, 'index'])->name('lerele.index');
