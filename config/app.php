@@ -70,6 +70,7 @@ return [
     |
     */
 
+    //'timezone' => 'Europe/Madrid',
     'timezone' => 'UTC',
 
     /*

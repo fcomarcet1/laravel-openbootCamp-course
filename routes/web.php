@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\BladeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\IntroductionController;
+use App\Http\Controllers\MyFirstPageController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +33,7 @@ use Illuminate\Support\Facades\Route;
 
 })->name('post-slug');*/
 
-Route::get('/demo', function () {
+/*Route::get('/demo', function () {
     return view('demo');
 })->name('demo');
 
@@ -112,20 +114,20 @@ Route::domain('admin.example.com')->group(function () {
                 ->name('user.destroy');
         });
     });
-});
+});*/
 
 // route with middleware
-Route::get('/test-middleware', [TestController::class, 'testMiddleware'])
+/*Route::get('/test-middleware', [TestController::class, 'testMiddleware'])
     ->middleware('auth')
-    ->name('test-middleware');
+    ->name('test-middleware');*/
 
 // route with middleware group
-Route::middleware(['auth', 'admin'])->group(function () {
+/*Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/test-middleware-group', [TestController::class, 'testMiddlewareGroup'])
         ->name('test-middleware-group');
-});
+});*/
 
-Route::middleware('isAdmin')
+/*Route::middleware('isAdmin')
     ->prefix('admin')
     ->get('/test-middleware', [TestController::class, 'testMiddlewareGroup'])
     ->name('admin');
@@ -140,16 +142,18 @@ Route::middleware(['auth', 'CheckRole:variableRole'])
     ->name('test-role');
 
 Route::middleware('exampleMiddleware:all')
-    ->get('/middle', [TestController::class, 'MiddlewareFunction']);
+    ->get('/middle', [TestController::class, 'MiddlewareFunction']);*/
 
 
-Route::view('/', 'home')->name('home');
+/*Route::view('/', 'home')->name('home');
 Route::view('/about', 'about')->name('about');
 Route::get('/contact', [ContactController::class, 'index'] )->name('contact.index');
 Route::middleware('validateForm')
     ->post('/contact', [ContactController::class, 'store'] )
-    ->name('contact.store');
-Route::get('/intro-blade', [IntroductionController::class, 'index'])->name('intro.index');
+    ->name('contact.store');*/
+
+/*Route::get('/intro-blade', [IntroductionController::class, 'index'])->name('intro.index');
+Route::get('/test-blade', [BladeController::class, 'index'])->name('blade.index');*/
 
 
 // more examples
@@ -163,9 +167,9 @@ Route::get('/intro-blade', [IntroductionController::class, 'index'])->name('intr
 // Route::permanentRedirect('/origin-route', '/destination-route')->name('test.index');
 
 
-Route::get('/values-from-parameters', [TestController::class, 'getValuesFromParameters']);
+/*Route::get('/values-from-parameters', [TestController::class, 'getValuesFromParameters']);
 Route::get('/my-first-page', [TestController::class, 'firstPage']);
-Route::get('/example', [TestController::class, 'index']);
+Route::get('/example', [TestController::class, 'index']);*/
 
 /*Route::get('/test/{string}', function (String $string) {
     switch ($string){
@@ -190,3 +194,13 @@ Route::get('/example', [TestController::class, 'index']);
         'string' => $result
     ]);
 });*/
+
+## My first page routes
+Route::name('my-first-page.')->prefix('/my-first-page')->group( function () {
+    Route::get('/{section}', [MyFirstPageController::class, 'section'])->name('section');
+    Route::get('/', [MyFirstPageController::class, 'index'])->name('home');
+    Route::post('/personalize', [MyFirstPageController::class, 'personalize'])->name('personalize');
+    Route::get('/about-us', [MyFirstPageController::class, 'aboutUs'])->name('about-us');
+    Route::get('/contact', [MyFirstPageController::class, 'contact'])->name('contact');
+    Route::post('/contact', [MyFirstPageController::class, 'contactProcess'])->name('contactProcess');
+});
