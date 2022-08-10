@@ -68,8 +68,6 @@ class MyFirstPageController extends Controller
             return view('my-first-page.error');
         }
         return view('my-first-page.success');
-
-
     }
 
     public function aboutUs() {
@@ -79,6 +77,7 @@ class MyFirstPageController extends Controller
         $country = 'Spain';
         $profession = 'Backend Developer';
         $section = 'about-us';
+
         return view('my-first-page.about-us', compact(
             'name',
             'age',

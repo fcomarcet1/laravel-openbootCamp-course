@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\BladeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\IntroductionController;
 use App\Http\Controllers\MyFirstPageController;
+use App\Http\Controllers\MyResourceController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -204,3 +206,15 @@ Route::name('my-first-page.')->prefix('/my-first-page')->group( function () {
     Route::get('/contact', [MyFirstPageController::class, 'contact'])->name('contact');
     Route::post('/contact', [MyFirstPageController::class, 'contactProcess'])->name('contactProcess');
 });
+
+## Admin routes
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+Route::get('/admin/{param}', [AdminController::class, 'getParamFromUrl'])->name('admin.getParamFromUrl');
+
+// generate routes
+Route::resource('resource', MyResourceController::class);
+/*Route::resource('resource', MyResourceController::class)->except(['create', 'edit']);
+Route::resource('resource', MyResourceController::class)->only(['index', 'show']);
+Route::resource('resource', MyResourceController::class)->middleware('auth');
+Route::resource('resource', MyResourceController::class)->middleware('auth')
+    ->except(['create', 'edit']);*/
