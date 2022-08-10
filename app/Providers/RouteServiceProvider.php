@@ -35,6 +35,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // para cambiar nombre de ruta de tipo resource
+        Route::resourceVerbs([
+            'create' => 'crear',
+            'edit' => 'editar',
+        ]);
+
         $this->configureRateLimiting();
 
         $this->routes(function () {
