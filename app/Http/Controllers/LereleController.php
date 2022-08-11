@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\MyCustomException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LereleController extends Controller
 {
@@ -30,5 +31,15 @@ class LereleController extends Controller
      */
     public function _generateException() {
         throw new MyCustomException('custom exception');
+    }
+
+    public function testSessions(){
+        /*
+        $myvar = Session::get('myvar');
+        Session::put('myvar', 'mynewvar');
+        Session::forget('myvar');
+        Session::flash('myvar', 'mynewvar');
+        */
+
     }
 }
